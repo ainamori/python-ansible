@@ -1,0 +1,12 @@
+#
+- hosts: localhost
+  tasks:
+  - name: Command
+    command: 
+      cmd: "{{ item }}"
+    with_items:
+      - '/usr/bin/uptime'
+      - '/usr/bin/echo'
+    tags:
+      - prod
+    become: yes

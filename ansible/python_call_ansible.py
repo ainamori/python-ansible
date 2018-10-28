@@ -60,23 +60,14 @@ class Ansible(object):
         inventory = InventoryManager(loader=loader, sources=host_list)
         variable_manager = VariableManager(loader=loader, inventory=inventory)
 
-        import yaml
-        _tasks = yaml.load(open('./command.yml', 'r'))
-        print(_tasks)
-        tasks = [dict(action=dict(
-            module='command',
-            args=dict(cmd='/usr/bin/uptime')
-        ))]
-        print(tasks)
         play_source = dict(
             name="Ansible Play",
             hosts=['localhost'],
             gather_facts='no',
-            tasks=tasks
-            # tasks=[dict(action=dict(
-            #     module='command',
-            #     args=dict(cmd='/usr/bin/uptime')
-            # ))]
+            tasks=[dict(action=dict(
+                module='command',
+                args=dict(cmd='/usr/bin/uptime')
+            ))]
         )
         play = Play().load(play_source, variable_manager=variable_manager, loader=loader)
 
